@@ -14,8 +14,10 @@ const CampusView = (props) => {
   return (
     <div>
       <h1>{campus.name}</h1>
-      <p>{campus.address}</p>
-      <p>{campus.description}</p>
+      <p>Address: {campus.address}</p>
+      <p>Description: {campus.description}</p>
+      <button>Edit Campus Information</button>
+      
       {campus.students.map( student => {
         let name = student.firstname + " " + student.lastname;
         return (
@@ -26,6 +28,7 @@ const CampusView = (props) => {
           </div>
         );
       })}
+      
     </div>
   );
 };
