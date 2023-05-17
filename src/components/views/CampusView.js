@@ -10,27 +10,40 @@ import { Link } from "react-router-dom";
 const CampusView = (props) => {
   const {campus} = props;
   
-  // Render a single Campus view with list of its students
-  return (
+  if(campus.students.length === 0) {
+    return (
     <div>
       <h1>{campus.name}</h1>
       <p>Address: {campus.address}</p>
       <p>Description: {campus.description}</p>
-      <button>Edit Campus Information</button>
-      
-      {campus.students.map( student => {
-        let name = student.firstname + " " + student.lastname;
-        return (
-          <div key={student.id}>
-            <Link to={`/student/${student.id}`}>
-              <h2>{name}</h2>
-            </Link>             
-          </div>
-        );
-      })}
-      
+      <p>There are no students.</p>
     </div>
-  );
+    );
+  }
+  else{
+  // Render a single Campus view with list of its students
+    return (
+      <div>
+        <h1>{campus.name}</h1>
+        <p>Address: {campus.address}</p>
+        <p>Description: {campus.description}</p>
+        <Link to={`/editcampus/${campus.id}`}>
+        <button>Edit Campus Information</button>
+        </Link>
+        {campus.students.map( student => {
+          let name = student.firstname + " " + student.lastname;
+          return (
+            <div key={student.id}>
+              <Link to={`/student/${student.id}`}>
+                <h2>{name}</h2>
+              </Link>             
+            </div>
+          );
+        })}
+        
+      </div>
+    );
+  }
 };
 
 export default CampusView;
