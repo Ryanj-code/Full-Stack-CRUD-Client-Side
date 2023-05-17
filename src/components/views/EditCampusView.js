@@ -35,34 +35,39 @@ const useStyles = makeStyles( () => ({
 }));
 
 const EditCampusView = (props) => {
-  const {handleChange, handleSubmit} = props;
+  const {handleChange, handleSubmit, campus } = props;
   const classes = useStyles();
 
-  // Render an editing form for the Campus
+  // Render a Edit Campus view with an input form
   return (
     <div>
-      <h1>Edit Campus</h1>
+      <h1>Edit Campus </h1>
 
       <div className={classes.root}>
         <div className={classes.formContainer}>
           <div className={classes.formTitle}>
             <Typography style={{fontWeight: 'bold', fontFamily: 'Courier, sans-serif', fontSize: '20px', color: '#11153e'}}>
-              Form
+              {campus.name}
             </Typography>
           </div>
           <form style={{textAlign: 'center'}} onSubmit={(e) => handleSubmit(e)}>
-            <label style= {{color:'#11153e', fontWeight: 'bold'}}>Name: </label>
-            <input type="text" name="name" onChange ={(e) => handleChange(e)} />
+            <label style= {{color:'#11153e', fontWeight: 'bold'}}>Campus Name: </label>
+            <input type="text" name="name" placeholder={campus.name} onChange ={(e) => handleChange(e)} />
             <br/>
             <br/>
 
-            <label style={{color:'#11153e', fontWeight: 'bold'}}>Address: </label>
-            <input type="text" name="address" onChange={(e) => handleChange(e)} />
+            <label style={{color:'#11153e', fontWeight: 'bold'}}>Campus Address: </label>
+            <input type="text" name="address" placeholder={campus.address} onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
 
-            <label style={{color:'#11153e', fontWeight: 'bold'}}>Description: </label>
-            <input type="text" name="description" onChange={(e) => handleChange(e)} />
+            <label style={{color:'#11153e', fontWeight: 'bold'}}>Campus Description: </label>
+            <input type="text" name="description" placeholder={campus.description} onChange={(e) => handleChange(e)} />
+            <br/>
+            <br/>
+
+            <label style={{color:'#11153e', fontWeight: 'bold'}}>Image URL: </label>
+            <input type="text" name="imageUrl" placeholder={campus.imageUrl} onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
 
