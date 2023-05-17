@@ -18,11 +18,12 @@ class NewCampusContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name: "", 
-      address: "", 
-      description: null, 
+      name: "",
+      address: "",
+      description: null,
+      imageUrl: null, 
       redirect: false, 
-      redirectId: null
+      redirectId: null,
     };
   }
 
@@ -37,22 +38,32 @@ class NewCampusContainer extends Component {
   handleSubmit = async event => {
     event.preventDefault();  // Prevent browser reload/refresh after submit.
 
+    const name = event.target.name.value;
+    const address = event.target.address.value;
+    
+    if(name === "" || address === ""){
+      alert("Make sure the name and address are filled in.")
+      return;
+    }
+
     let campus = {
         name: this.state.name,
         address: this.state.address,
-        description: this.state.description
+        description: this.state.description,
+        imageUrl: this.state.imageUrl,
     };
     
     // Add new campus in back-end database
-    let newCampus = await this.props.addCampus(campus);
+    let NewCampus = await this.props.addCampus(campus);
 
     // Update state, and trigger redirect to show the new campus
     this.setState({
-      name: "", 
-      address: "", 
-      description: null, 
+      name: "",
+      address: "",
+      description: null,
+      imageUrl: null,
       redirect: true, 
-      redirectId: newCampus.id
+      redirectId: NewCampus.id
     });
   }
 
@@ -63,7 +74,7 @@ class NewCampusContainer extends Component {
 
   // Render new campus input form
   render() {
-    // Redirect to new campus' page after submit
+    // Redirect to new campus's page after submit
     if(this.state.redirect) {
       return (<Redirect to={`/campus/${this.state.redirectId}`}/>)
     }
