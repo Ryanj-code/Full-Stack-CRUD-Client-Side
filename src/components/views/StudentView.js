@@ -26,7 +26,7 @@ const StudentView = (props) => {
           <h3>{student.campus.name}</h3>
         </Link>
       ) : (
-        <p style={{ fontWeight: "bold" }}>STUDENT IS IN NO CAMPUS</p>
+        <p>Student is not currently enrolled.</p>
       )}
       <Link to={`/editstudent/${student.id}`}>
         <button>Edit Student</button>

@@ -8,42 +8,38 @@ import { Link } from "react-router-dom";
 
 // Take in props data to construct the component
 const CampusView = (props) => {
-  const {campus} = props;
+  const {campus, deleteCampus} = props;
   
-  if(campus.students.length === 0) {
-    return (
+  // Render a single Campus view with list of its students
+  return (
     <div>
       <h1>{campus.name}</h1>
-      <p>Address: {campus.address}</p>
-      <p>Description: {campus.description}</p>
-      <p>There are no students.</p>
-    </div>
-    );
-  }
-  else{
-  // Render a single Campus view with list of its students
-    return (
-      <div>
-        <h1>{campus.name}</h1>
-        <p>Address: {campus.address}</p>
-        <p>Description: {campus.description}</p>
-        <Link to={`/editcampus/${campus.id}`}>
-        <button>Edit Campus Information</button>
-        </Link>
-        {campus.students.map( student => {
+      <img src={campus.imageUrl} alt={campus.name} style={{width: 500, height: 300}}></img>
+      <p>{campus.address}</p>
+      <p>{campus.description}</p>
+      
+      {campus.students.length ? 
+        (campus.students.map( student => {
           let name = student.firstname + " " + student.lastname;
           return (
-            <div key={student.id}>
-              <Link to={`/student/${student.id}`}>
-                <h2>{name}</h2>
-              </Link>             
+            <div>
+              <div key={student.id}>
+                <Link to={`/student/${student.id}`}>
+                  <h2>{name}</h2>
+                </Link>             
+              </div>
+              <hr/>
             </div>
           );
-        })}
-        
-      </div>
-    );
-  }
+        }) ) : (<p>No students are currently enrolled.</p>)}
+      <Link to={`/editcampuses/${campus.id}`}>
+        <button>Edit Campus</button>
+      </Link>
+      <Link to={`/campuses`}>
+        <button onClick={() => deleteCampus(campus.id)}>Delete Campus</button>
+      </Link>
+    </div>
+  );
 };
 
 export default CampusView;
